@@ -2,7 +2,14 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "bill-backend",
   "main": "src/index.ts",
-  "compatibility_date": "2026-10-07"
+  "compatibility_date": "2026-10-07",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "bill-db",
+      "database_id": "local-only-placeholder-fill-in-after-wrangler-d1-create"
+    }
+  ]
   // "compatibility_flags": [
   //   "nodejs_compat"
   // ],
