@@ -9,13 +9,16 @@
       "database_name": "bill-db",
       "database_id": "local-only-placeholder-fill-in-after-wrangler-d1-create"
     }
-  ]
+  ],
+  // Fill these in with real values from the Cloudflare Access app once it's created
+  // (issue #12, deployment). Never add DEV_MODE here — that only belongs in .dev.vars.
+  "vars": {
+    "ACCESS_TEAM_DOMAIN": "CHANGE_ME.cloudflareaccess.com",
+    "ACCESS_AUD": "CHANGE_ME"
+  }
   // "compatibility_flags": [
   //   "nodejs_compat"
   // ],
-  // "vars": {
-  //   "MY_VAR": "my-variable"
-  // },
   // "kv_namespaces": [
   //   {
   //     "binding": "MY_KV_NAMESPACE",

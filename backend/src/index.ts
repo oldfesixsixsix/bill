@@ -1,8 +1,9 @@
 import { Hono } from 'hono'
 import { getDb } from './db/client'
 import { accounts } from './db/schema'
+import { accessAuth, type AccessUser } from './middleware/access-auth'
 
-const app = new Hono<{ Bindings: CloudflareBindings }>()
+const app = new Hono<{ Bindings: CloudflareBindings; Variables: { accessUser: AccessUser } }>()
 
 app.get('/health', (c) => {
   return c.json({ status: 'ok' })
@@ -12,6 +13,12 @@ app.get('/health/db', async (c) => {
   const db = getDb(c.env.DB)
   const rows = await db.select().from(accounts).all()
   return c.json({ accounts: rows })
+})
+
+app.use('/api/*', accessAuth())
+
+app.get('/api/me', (c) => {
+  return c.json({ email: c.get('accessUser').email })
 })
 
 export default app
