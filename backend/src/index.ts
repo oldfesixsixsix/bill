@@ -4,6 +4,7 @@ import { accounts } from './db/schema'
 import { accessAuth, type AccessUser } from './middleware/access-auth'
 import { accountsRoute } from './routes/accounts'
 import { categoriesRoute } from './routes/categories'
+import { transactionsRoute } from './routes/transactions'
 
 const app = new Hono<{ Bindings: CloudflareBindings; Variables: { accessUser: AccessUser } }>()
 
@@ -25,5 +26,6 @@ app.get('/api/me', (c) => {
 
 app.route('/api/accounts', accountsRoute)
 app.route('/api/categories', categoriesRoute)
+app.route('/api/transactions', transactionsRoute)
 
 export default app
