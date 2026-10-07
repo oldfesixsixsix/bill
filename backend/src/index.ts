@@ -2,6 +2,7 @@ import { Hono } from 'hono'
 import { getDb } from './db/client'
 import { accounts } from './db/schema'
 import { accessAuth, type AccessUser } from './middleware/access-auth'
+import { accountsRoute } from './routes/accounts'
 
 const app = new Hono<{ Bindings: CloudflareBindings; Variables: { accessUser: AccessUser } }>()
 
@@ -20,5 +21,7 @@ app.use('/api/*', accessAuth())
 app.get('/api/me', (c) => {
   return c.json({ email: c.get('accessUser').email })
 })
+
+app.route('/api/accounts', accountsRoute)
 
 export default app
