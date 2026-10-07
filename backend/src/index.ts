@@ -10,6 +10,7 @@ import { eventsRoute } from './routes/events'
 import { drinkPresetsRoute } from './routes/drink-presets'
 import { drinkIntakeRoute } from './routes/drink-intake'
 import { chartsRoute } from './routes/charts'
+import { dailyReceiptRoute } from './routes/daily-receipt'
 
 const app = new Hono<{ Bindings: CloudflareBindings; Variables: { accessUser: AccessUser } }>()
 
@@ -46,5 +47,6 @@ app.route('/api/events', eventsRoute)
 app.route('/api/drink-presets', drinkPresetsRoute)
 app.route('/api/drink-intake', drinkIntakeRoute)
 app.route('/api/charts', chartsRoute)
+app.route('/api/daily-receipt', dailyReceiptRoute)
 
 export default app
