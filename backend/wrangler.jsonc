@@ -14,7 +14,8 @@
   // (issue #12, deployment). Never add DEV_MODE here — that only belongs in .dev.vars.
   "vars": {
     "ACCESS_TEAM_DOMAIN": "CHANGE_ME.cloudflareaccess.com",
-    "ACCESS_AUD": "CHANGE_ME"
+    "ACCESS_AUD": "CHANGE_ME",
+    "FRONTEND_ORIGIN": "CHANGE_ME"
   }
   // "compatibility_flags": [
   //   "nodejs_compat"

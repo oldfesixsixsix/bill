@@ -1,4 +1,5 @@
 import { Hono } from 'hono'
+import { cors } from 'hono/cors'
 import { getDb } from './db/client'
 import { accounts } from './db/schema'
 import { accessAuth, type AccessUser } from './middleware/access-auth'
@@ -8,6 +9,7 @@ import { transactionsRoute } from './routes/transactions'
 import { eventsRoute } from './routes/events'
 import { drinkPresetsRoute } from './routes/drink-presets'
 import { drinkIntakeRoute } from './routes/drink-intake'
+import { chartsRoute } from './routes/charts'
 
 const app = new Hono<{ Bindings: CloudflareBindings; Variables: { accessUser: AccessUser } }>()
 
@@ -21,6 +23,16 @@ app.get('/health/db', async (c) => {
   return c.json({ accounts: rows })
 })
 
+// credentials: true + an explicit origin (not '*') because the browser needs to
+// send Access's CF_Authorization cookie cross-origin once Pages and this Worker
+// are deployed on different hostnames (issue #12).
+app.use(
+  '/api/*',
+  cors({
+    origin: (origin, c) => c.env.FRONTEND_ORIGIN ?? origin,
+    credentials: true,
+  })
+)
 app.use('/api/*', accessAuth())
 
 app.get('/api/me', (c) => {
@@ -33,5 +45,6 @@ app.route('/api/transactions', transactionsRoute)
 app.route('/api/events', eventsRoute)
 app.route('/api/drink-presets', drinkPresetsRoute)
 app.route('/api/drink-intake', drinkIntakeRoute)
+app.route('/api/charts', chartsRoute)
 
 export default app

@@ -2,3 +2,4 @@
 # Skips Cloudflare Access JWT verification entirely — only ever set this locally.
 DEV_MODE=true
 DEV_USER_EMAIL=dev@example.com
+FRONTEND_ORIGIN=http://localhost:5173
