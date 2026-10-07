@@ -1,15 +1,19 @@
 import { useState } from 'react'
 import { CategorySpendingChart } from './components/CategorySpendingChart'
 import { DailyReceipt } from './components/DailyReceipt'
+import { Bookkeeping } from './components/Bookkeeping'
 
-type View = 'chart' | 'receipt'
+type View = 'bookkeeping' | 'chart' | 'receipt'
 
 function App() {
-  const [view, setView] = useState<View>('chart')
+  const [view, setView] = useState<View>('bookkeeping')
 
   return (
     <main style={{ maxWidth: 720, margin: '2rem auto', padding: '0 1rem' }}>
       <nav style={{ display: 'flex', gap: '0.5rem', marginBottom: '1.5rem' }}>
+        <button type="button" onClick={() => setView('bookkeeping')} disabled={view === 'bookkeeping'}>
+          記帳
+        </button>
         <button type="button" onClick={() => setView('chart')} disabled={view === 'chart'}>
           類別開銷
         </button>
@@ -18,7 +22,9 @@ function App() {
         </button>
       </nav>
 
-      {view === 'chart' ? <CategorySpendingChart /> : <DailyReceipt />}
+      {view === 'bookkeeping' && <Bookkeeping />}
+      {view === 'chart' && <CategorySpendingChart />}
+      {view === 'receipt' && <DailyReceipt />}
     </main>
   )
 }
