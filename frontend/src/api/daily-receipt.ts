@@ -1,3 +1,5 @@
+import { API_BASE } from './base'
+
 export type DailyReceiptItem = { name: string; amount: number }
 
 export type DailyReceiptResponse = {
@@ -8,7 +10,7 @@ export type DailyReceiptResponse = {
 }
 
 export async function fetchDailyReceipt(date: string): Promise<DailyReceiptResponse> {
-  const res = await fetch(`/api/daily-receipt?date=${date}`, { credentials: 'include' })
+  const res = await fetch(`${API_BASE}/api/daily-receipt?date=${date}`, { credentials: 'include' })
   if (!res.ok) {
     throw new Error(`Failed to fetch daily receipt: ${res.status}`)
   }

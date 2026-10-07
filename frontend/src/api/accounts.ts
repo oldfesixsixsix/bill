@@ -1,3 +1,5 @@
+import { API_BASE } from './base'
+
 export type Account = {
   id: number
   name: string
@@ -7,7 +9,7 @@ export type Account = {
 }
 
 export async function fetchAccounts(): Promise<Account[]> {
-  const res = await fetch('/api/accounts', { credentials: 'include' })
+  const res = await fetch(`${API_BASE}/api/accounts`, { credentials: 'include' })
   if (!res.ok) throw new Error(`Failed to fetch accounts: ${res.status}`)
   const data = (await res.json()) as { accounts: Account[] }
   return data.accounts

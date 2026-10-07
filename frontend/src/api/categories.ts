@@ -1,3 +1,5 @@
+import { API_BASE } from './base'
+
 export type Category = {
   id: number
   kind: 'income' | 'expense'
@@ -8,7 +10,7 @@ export type Category = {
 export type CategoryTreeNode = Category & { children: Category[] }
 
 export async function fetchCategories(kind: 'income' | 'expense'): Promise<CategoryTreeNode[]> {
-  const res = await fetch(`/api/categories?kind=${kind}`, { credentials: 'include' })
+  const res = await fetch(`${API_BASE}/api/categories?kind=${kind}`, { credentials: 'include' })
   if (!res.ok) throw new Error(`Failed to fetch categories: ${res.status}`)
   const data = (await res.json()) as { categories: CategoryTreeNode[] }
   return data.categories

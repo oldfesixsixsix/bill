@@ -1,3 +1,5 @@
+import { API_BASE } from './base'
+
 export type Event = {
   id: number
   name: string
@@ -6,7 +8,7 @@ export type Event = {
 }
 
 export async function fetchEvents(): Promise<Event[]> {
-  const res = await fetch('/api/events', { credentials: 'include' })
+  const res = await fetch(`${API_BASE}/api/events`, { credentials: 'include' })
   if (!res.ok) throw new Error(`Failed to fetch events: ${res.status}`)
   const data = (await res.json()) as { events: Event[] }
   return data.events
