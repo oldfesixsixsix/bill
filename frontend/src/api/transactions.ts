@@ -1,5 +1,3 @@
-import { API_BASE } from './base'
-
 export type TransactionType = 'income' | 'expense' | 'transfer'
 
 export type TransactionItem = {
@@ -41,7 +39,7 @@ export type TransactionInput = {
 }
 
 export async function fetchTransactions(): Promise<Transaction[]> {
-  const res = await fetch(`${API_BASE}/api/transactions`, { credentials: 'include' })
+  const res = await fetch('/api/transactions', { credentials: 'include' })
   if (!res.ok) throw new Error(`Failed to fetch transactions: ${res.status}`)
   const data = (await res.json()) as { transactions: Transaction[] }
   return data.transactions
@@ -57,7 +55,7 @@ async function parseErrorMessage(res: Response): Promise<string> {
 }
 
 export async function createTransaction(input: TransactionInput): Promise<Transaction> {
-  const res = await fetch(`${API_BASE}/api/transactions`, {
+  const res = await fetch('/api/transactions', {
     method: 'POST',
     credentials: 'include',
     headers: { 'Content-Type': 'application/json' },
@@ -68,7 +66,7 @@ export async function createTransaction(input: TransactionInput): Promise<Transa
 }
 
 export async function updateTransaction(id: number, input: TransactionInput): Promise<Transaction> {
-  const res = await fetch(`${API_BASE}/api/transactions/${id}`, {
+  const res = await fetch(`/api/transactions/${id}`, {
     method: 'PATCH',
     credentials: 'include',
     headers: { 'Content-Type': 'application/json' },

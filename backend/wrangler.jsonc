@@ -7,15 +7,22 @@
     {
       "binding": "DB",
       "database_name": "bill-db",
-      "database_id": "local-only-placeholder-fill-in-after-wrangler-d1-create"
+      "database_id": "31687590-cf09-40c4-937a-dd31f34a3e19"
     }
   ],
-  // Fill these in with real values from the Cloudflare Access app once it's created
-  // (issue #12, deployment). Never add DEV_MODE here — that only belongs in .dev.vars.
+  // Same-origin with the Pages frontend (ADR-0004): this Worker only answers
+  // bill.unclereal.com/api/*, everything else on that host falls through to Pages.
+  "routes": [
+    {
+      "pattern": "bill.unclereal.com/api/*",
+      "zone_name": "unclereal.com"
+    }
+  ],
+  // Fill these in with real values from the Cloudflare Access app once it's created.
+  // Never add DEV_MODE here — that only belongs in .dev.vars.
   "vars": {
     "ACCESS_TEAM_DOMAIN": "CHANGE_ME.cloudflareaccess.com",
-    "ACCESS_AUD": "CHANGE_ME",
-    "FRONTEND_ORIGIN": "CHANGE_ME"
+    "ACCESS_AUD": "CHANGE_ME"
   }
   // "compatibility_flags": [
   //   "nodejs_compat"

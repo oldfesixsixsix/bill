@@ -1,5 +1,4 @@
 import { Hono } from 'hono'
-import { cors } from 'hono/cors'
 import { getDb } from './db/client'
 import { accounts } from './db/schema'
 import { accessAuth, type AccessUser } from './middleware/access-auth'
@@ -24,16 +23,7 @@ app.get('/health/db', async (c) => {
   return c.json({ accounts: rows })
 })
 
-// credentials: true + an explicit origin (not '*') because the browser needs to
-// send Access's CF_Authorization cookie cross-origin once Pages and this Worker
-// are deployed on different hostnames (issue #12).
-app.use(
-  '/api/*',
-  cors({
-    origin: (origin, c) => c.env.FRONTEND_ORIGIN ?? origin,
-    credentials: true,
-  })
-)
+// Same-origin with the Pages frontend (ADR-0004) — no CORS needed.
 app.use('/api/*', accessAuth())
 
 app.get('/api/me', (c) => {

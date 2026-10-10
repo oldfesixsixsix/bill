@@ -4,5 +4,4 @@
 interface CloudflareBindings {
   DEV_MODE?: string
   DEV_USER_EMAIL?: string
-  FRONTEND_ORIGIN?: string
 }
